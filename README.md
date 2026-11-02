@@ -58,27 +58,3 @@ The site combines a playful visual identity with clear calls to action and inter
 ## License
 
 This project is currently private and does not specify an open-source license.
-
-## Deploy to GitHub Pages
-
-This repository includes a GitHub Actions workflow that deploys this website
-from `main` to GitHub Pages.
-
-1. Push the repository changes to GitHub.
-2. In GitHub, open **Settings → Pages**.
-3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-4. Open the **Actions** tab and wait for **Deploy Sally Academy Website** to
-   finish.
-
-The website will be available at:
-
-```text
-https://aya0.github.io/sallyAcademy/
-```
-
-For local development:
-
-```bash
-npm install
-npm run dev
-```
