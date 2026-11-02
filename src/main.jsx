@@ -1,6 +1,8 @@
 import React, { StrictMode, useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles.css'
+import heroImage from '../public-hero.png'
+import studentsImage from '../public-students.png'
 
 const services = [
   {
@@ -45,7 +47,7 @@ const teachers = [
 
 const studentStories = [
   {
-    image: '/public-students.png',
+    image: studentsImage,
     alt: 'Happy Sally Academy students smiling together',
     quote: 'I used to think I was bad at science. Now I am the person my friends ask for help.',
     initials: 'JM',
@@ -54,7 +56,7 @@ const studentStories = [
     love: 'Building things that actually move and getting to try again when the first idea does not work.',
   },
   {
-    image: '/public-hero.png',
+    image: heroImage,
     alt: 'Students collaborating on a hands-on learning project',
     quote: 'My tutor makes hard maths feel like a puzzle I can actually solve.',
     initials: 'AR',
@@ -63,7 +65,7 @@ const studentStories = [
     love: 'Having a plan that makes every small win visible, from homework to the next big test.',
   },
   {
-    image: '/public-students.png',
+    image: studentsImage,
     alt: 'Students exploring a creative project together',
     quote: 'The best part is that my ideas are never too big to try here.',
     initials: 'NK',
@@ -196,7 +198,7 @@ function App() {
             </div>
           </div>
           <div className="hero-art">
-            <div className="hero-image-wrap"><img src="/public-hero.png" alt="Students working together in a bright learning studio" /></div>
+            <div className="hero-image-wrap"><img src={heroImage} alt="Students working together in a bright learning studio" /></div>
             <span className="sticker sticker-yellow">Make<br />wonder</span>
             <span className="sticker sticker-blue">+<br />imagine</span>
             <span className="hero-caption"><b>Live workshop</b><br /><strong>Build your first robot</strong></span>
@@ -230,7 +232,7 @@ function App() {
             <div className="story-image"><img key={activeStudentStory.image + studentStoryIndex} src={activeStudentStory.image} alt={activeStudentStory.alt} /><span className="quote-mark">“</span><button className="story-arrow story-arrow-left" onClick={() => changeStudentStory(-1)} aria-label="Previous student story">←</button><button className="story-arrow story-arrow-right" onClick={() => changeStudentStory(1)} aria-label="Next student story">→</button><span className="story-counter">{studentStoryIndex + 1} / {studentStories.length}</span></div>
             <div className="quote-card" key={activeStudentStory.name}><div className="stars">★★★★★</div><blockquote>“{activeStudentStory.quote}”</blockquote><div className="student"><span className="student-avatar">{activeStudentStory.initials}</span><div><strong>{activeStudentStory.name}</strong><small>{activeStudentStory.detail}</small></div></div><div className="love-list"><span>♡</span><div><strong>What {activeStudentStory.name.split(' ')[0]} loves most</strong><p>{activeStudentStory.love}</p></div></div></div>
           </div>
-          <button className="video-card" onClick={() => setPlaying(true)}><span className="video-thumb"><img src="/public-hero.png" alt="" /><span className="large-play">▶</span></span><span><small>Watch the student spotlight</small><strong>“Learning here feels like an adventure.”</strong></span><span className="arrow-circle">↗</span></button>
+          <button className="video-card" onClick={() => setPlaying(true)}><span className="video-thumb"><img src={heroImage} alt="" /><span className="large-play">▶</span></span><span><small>Watch the student spotlight</small><strong>“Learning here feels like an adventure.”</strong></span><span className="arrow-circle">↗</span></button>
         </section>
 
         <section className="section teachers-section" id="teachers" ref={teacherSection} onMouseMove={handleTeacherMouseMove} onMouseLeave={() => { mouseZone.current = 'center' }}>
