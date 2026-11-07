@@ -2,52 +2,103 @@ import React, { StrictMode, useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles.css'
 import heroImage from '../public-hero.png'
-import studentsImage from '../public-students.png'
+
+const publicAsset = (path) => `${import.meta.env.BASE_URL}${path}`
+const groupOfStudentsImage = publicAsset('imags/Group_of_student.jpeg')
+const studentStoryImages = [
+  publicAsset('imags/StudentStories1.jpeg'),
+  publicAsset('imags/StudentStories2.jpeg'),
+  publicAsset('imags/StudentStories3.jpeg'),
+]
+const introductoryVideo = publicAsset('video/Introductory.mp4')
+
+const [studentStories1, studentStories2, studentStories3] = studentStoryImages
 
 const services = [
   {
     icon: '✦',
-    label: 'Personalized growth',
-    title: 'Private 1-on-1 Sessions',
-    short: 'Focused support built around one learner, one goal, and one brilliant pace.',
-    description: 'A dedicated mentor meets your learner where they are and builds a clear path forward. Every session blends encouragement, practice, and a plan parents can see.',
-    price: '$45',
+    label: 'Academic excellence',
+    title: 'Private Tutoring',
+    short: 'Personalized academic support for students at every educational level.',
+    description: 'We provide private tutoring for all school grades, including Tawjihi, following Palestinian, British, and American curricula. Our programs also cover international qualifications such as IGCSE and SAT.',
+    price: '40$/hour',
     color: 'coral',
-    features: ['Personal learning plan', 'Weekly progress notes', 'Flexible online or in-person sessions'],
+    features: [
+      'All school grades, including Tawjihi',
+      'Palestinian, British & American curricula',
+      'IGCSE & SAT preparation',
+    ],
+  },
+  {
+    icon: '◉',
+    label: 'Language development',
+    title: 'Language Courses',
+    short: 'Build confidence and fluency through interactive language practice.',
+    description: 'Our language courses focus on developing communication skills through engaging and practical conversation sessions in English and French.',
+    price: '50$/hour',
+    color: 'blue',
+    features: [
+      'English conversation courses',
+      'French conversation courses',
+      'Interactive speaking practice',
+    ],
+  },
+  {
+    icon: '☀',
+    label: 'Learn & explore',
+    title: 'Summer Camps',
+    short: 'Exciting summer experiences filled with learning, creativity, and fun.',
+    description: 'Our summer camps offer children a combination of educational, recreational, and enrichment activities designed to develop their skills, confidence, and creativity.',
+    price: '45$/hour',
+    color: 'yellow',
+    features: [
+      'Educational activities',
+      'Recreational experiences',
+      'Creative and enrichment programs',
+    ],
+  },
+  {
+    icon: '✿',
+    label: 'Creative expression',
+    title: 'Arts & Creative Programs',
+    short: 'Explore imagination through art, crafts, and hands-on creativity.',
+    description: 'We organize creative workshops that encourage self-expression, emotional release, and artistic exploration through handmade crafts, fine arts, and traditional creative activities.',
+    price: '40$/hour',
+    color: 'mint',
+    features: [
+      'Creative and expressive workshops',
+      'Handmade crafts',
+      'Fine arts and traditional crafts',
+    ],
   },
   {
     icon: '⚙',
-    label: 'Build & discover',
-    title: 'Robotics & STEM Labs',
-    short: 'Learn to code, design, and build through challenges that feel like play.',
-    description: 'Learners turn ideas into working robots and experiments using Scratch, Python, electronics, and creative problem-solving. No prior experience is needed.',
-    price: '$55',
-    color: 'blue',
-    features: ['Robotics kits provided', 'Team innovation challenges', 'Junior Robotics diploma'],
+    label: 'Innovation & discovery',
+    title: 'Technology & Engineering Programs',
+    short: 'Inspire young innovators through robotics, engineering, and hands-on learning.',
+    description: 'Through our collaboration with Engineering For Kids, we offer internationally specialized educational programs in robotics and engineering, helping children develop technical skills, creativity, and problem-solving abilities.',
+    price: '55$/hour',
+    color: 'yellow',
+    features: [
+      'Robotics programs',
+      'Hands-on engineering activities',
+      'International educational programs',
+    ],
   },
-  {
-    icon: '▤',
-    label: 'Academic mastery',
-    title: 'Full School Subjects',
-    short: 'Confident, curriculum-aligned support across the subjects that matter most.',
-    description: 'From homework help to exam preparation, our subject specialists make tricky concepts click in Math, Science, English, Physics, Chemistry, and more.',
-    price: '$38',
-    color: 'mint',
-    features: ['Math, science & English', 'Homework and exam prep', 'Progress checks for families'],
-  },
-]
+];
 
 const teachers = [
-  { name: 'Sarah Jenkins', role: 'Math & Physics', bio: 'Turns big equations into small, satisfying wins.', initials: 'SJ', color: 'coral' },
-  { name: 'Marcus Chen', role: 'Robotics & Engineering', bio: 'Builds fearless makers one prototype at a time.', initials: 'MC', color: 'blue' },
-  { name: 'Elena Rostova', role: 'English & Humanities', bio: 'Helps every voice become a confident story.', initials: 'ER', color: 'mint' },
-  { name: 'David Kim', role: 'Biology & Chemistry', bio: 'Makes the world’s best classroom a real lab.', initials: 'DK', color: 'yellow' },
-  { name: 'Aisha Patel', role: 'Coding & Game Design', bio: 'Shows young developers how ideas come alive.', initials: 'AP', color: 'lavender' },
-]
+  { name: 'Sarah', role: 'Math & Physics', bio: 'Turns big equations into small, satisfying wins.', initials: 'SJ', color: 'coral' },
+  { name: 'Rama', role: 'Learning Support', bio: 'Helps students overcome learning challenges and discover their strengths.', initials: 'RA', color: 'blue' },
+  { name: 'Munawwar', role: 'English & Humanities', bio: 'Helps every voice become a confident story.', initials: 'ER', color: 'mint' },
+  { name: 'Massa', role: 'Biology & Chemistry', bio: 'Makes the world’s best classroom a real lab.', initials: 'DK', color: 'yellow' },
+  { name: 'Jana', role: 'Coding & Game Design', bio: 'Shows young developers how ideas come alive.', initials: 'AP', color: 'lavender' },
+  { name: 'Tasneem', role: 'Arts & Design', bio: 'Inspires young minds to express their creativity through art and design.', initials: 'TA', color: 'mint' },
+];
 
 const studentStories = [
   {
-    image: studentsImage,
+    image: studentStories1,
     alt: 'Happy Sally Academy students smiling together',
     quote: 'I used to think I was bad at science. Now I am the person my friends ask for help.',
     initials: 'JM',
@@ -56,7 +107,7 @@ const studentStories = [
     love: 'Building things that actually move and getting to try again when the first idea does not work.',
   },
   {
-    image: heroImage,
+    image: studentStories2,
     alt: 'Students collaborating on a hands-on learning project',
     quote: 'My tutor makes hard maths feel like a puzzle I can actually solve.',
     initials: 'AR',
@@ -65,7 +116,7 @@ const studentStories = [
     love: 'Having a plan that makes every small win visible, from homework to the next big test.',
   },
   {
-    image: studentsImage,
+    image: studentStories3,
     alt: 'Students exploring a creative project together',
     quote: 'The best part is that my ideas are never too big to try here.',
     initials: 'NK',
@@ -80,6 +131,7 @@ function App() {
   const [selectedService, setSelectedService] = useState(null)
   const [booking, setBooking] = useState(null)
   const [selectedTeacher, setSelectedTeacher] = useState(null)
+  const [selectedLeader, setSelectedLeader] = useState(null)
   const [teacherIndex, setTeacherIndex] = useState(0)
   const [playing, setPlaying] = useState(false)
   const [studentStoryIndex, setStudentStoryIndex] = useState(0)
@@ -102,6 +154,7 @@ function App() {
         setSelectedService(null)
         setBooking(null)
         setSelectedTeacher(null)
+        setSelectedLeader(null)
       }
     }
     window.addEventListener('keydown', closeOnEscape)
@@ -208,8 +261,8 @@ function App() {
         <section className="section about-section" id="about">
           <div className="about-card">
             <span className="big-icon" aria-hidden="true">✦</span>
-            <h2>Learning should feel like an <em>unlock.</em></h2>
-            <p>Sally Academy is a joyful place where curious learners build confidence through creative, hands-on learning. We are looking for students who are ready to ask questions, try new things, and grow.</p>
+            <h2>Inspiring minds, <em>empowering futures.</em></h2>
+            <p>Sally Academy is a dynamic educational and training institution dedicated to inspiring young minds, nurturing talents, and empowering learners through innovative learning experiences. We offer a diverse range of academic, creative, and technology-driven programs designed to develop essential skills, unlock potential, and prepare learners for a brighter future. Through engaging teaching methods and a supportive learning environment, we transform curiosity into knowledge, ideas into innovation, and potential into achievement.</p>
           </div>
         </section>
 
@@ -232,7 +285,7 @@ function App() {
             <div className="story-image"><img key={activeStudentStory.image + studentStoryIndex} src={activeStudentStory.image} alt={activeStudentStory.alt} /><span className="quote-mark">“</span><button className="story-arrow story-arrow-left" onClick={() => changeStudentStory(-1)} aria-label="Previous student story">←</button><button className="story-arrow story-arrow-right" onClick={() => changeStudentStory(1)} aria-label="Next student story">→</button><span className="story-counter">{studentStoryIndex + 1} / {studentStories.length}</span></div>
             <div className="quote-card" key={activeStudentStory.name}><div className="stars">★★★★★</div><blockquote>“{activeStudentStory.quote}”</blockquote><div className="student"><span className="student-avatar">{activeStudentStory.initials}</span><div><strong>{activeStudentStory.name}</strong><small>{activeStudentStory.detail}</small></div></div><div className="love-list"><span>♡</span><div><strong>What {activeStudentStory.name.split(' ')[0]} loves most</strong><p>{activeStudentStory.love}</p></div></div></div>
           </div>
-          <button className="video-card" onClick={() => setPlaying(true)}><span className="video-thumb"><img src={heroImage} alt="" /><span className="large-play">▶</span></span><span><small>Watch the student spotlight</small><strong>“Learning here feels like an adventure.”</strong></span><span className="arrow-circle">↗</span></button>
+          <button className="video-card" onClick={() => setPlaying(true)}><span className="video-thumb"><img src={groupOfStudentsImage} alt="" /><span className="large-play">▶</span></span><span><small>Watch the student spotlight</small><strong>“Learning here feels like an adventure.”</strong></span><span className="arrow-circle">↗</span></button>
         </section>
 
         <section className="section teachers-section" id="teachers" ref={teacherSection} onMouseMove={handleTeacherMouseMove} onMouseLeave={() => { mouseZone.current = 'center' }}>
@@ -245,18 +298,19 @@ function App() {
         <section className="section leadership-section" id="leadership">
           <div className="section-heading centered"><span className="eyebrow mint-bg">The people behind the place</span><h2>Led with heart, built for <em>possibility.</em></h2></div>
           <div className="leaders">
-            <article className="leader-card coral-card"><div className="leader-avatar">SV</div><div><span className="pill">Owner / Manager</span><h3>Sally Vance</h3><strong>Chief educational visionary</strong><p>“Every learner deserves a place where their questions are treated as the beginning of something extraordinary.”</p><button className="button button-primary leader-connect" onClick={() => setBooking('Connect with Sally Vance')}>Connect with us <span>→</span></button></div></article>
-            <article className="leader-card blue-card"><div className="leader-avatar">AS</div><div><span className="pill">Owner / Manager</span><h3>Arthur Sterling</h3><strong>Community & operations lead</strong><p>Arthur makes sure every family feels welcomed, every teacher is supported, and every day runs smoothly.</p><button className="button button-primary leader-connect" onClick={() => setBooking('Connect with Arthur Sterling')}>Connect with us <span>→</span></button></div></article>
+            <article className="leader-card coral-card"><div className="leader-avatar">SV</div><div><span className="pill">Owner </span><h3>Sally Hoda</h3><strong>Founder of Sally Academy</strong><p>“Every learner deserves a place where their questions are treated as the beginning of something extraordinary.”</p><button className="button button-primary leader-connect" onClick={() => setSelectedLeader({ name: 'Sally Hoda', role: 'Founder of Sally Academy', bio: 'An architect, artist, and researcher with a deep passion for education and inspiring future generations. She has proudly represented Palestine at several international forums and events, bringing her creativity, knowledge, and vision to the global stage.' })}>About Me <span>→</span></button></div></article>
+            <article className="leader-card blue-card"><div className="leader-avatar">AS</div><div><span className="pill">Manager</span><h3>Sadeel Hoda</h3><strong>Executive Director of Sally Academy</strong><p>Sadeel oversees the academy’s daily operations and long-term growth.</p><button className="button button-primary leader-connect" onClick={() => setSelectedLeader({ name: 'Sadeel Hoda', role: 'Executive Director of Sally Academy', bio: 'A Business Administration graduate from Birzeit University, with a strong interest in business development, marketing, and strategic growth. She serves as the Executive Director of Sally Academy, overseeing daily operations and contributing to the academy’s development, growth, and long-term vision.' })}>About Me <span>→</span></button></div></article>
           </div>
         </section>
       </main>
 
-      <footer><div className="brand"><span className="brand-mark">S</span><span><strong>Sally</strong> Academy<small>Curiosity starts here</small></span></div><p>Helping bright ideas find their way into the world.</p><span>© 2024 Sally Academy</span></footer>
+      <footer><div className="brand"><span className="brand-mark">S</span><span><strong>Sally</strong> Academy<small>Curiosity starts here</small></span></div><p>Helping bright ideas find their way into the world.</p><span>© 2026 Sally Academy</span></footer>
 
       {selectedService && <div className="modal-backdrop" onClick={() => setSelectedService(null)}><div className="modal service-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setSelectedService(null)}>×</button><span className={`service-icon ${selectedService.color}`}>{selectedService.icon}</span><span className="eyebrow">{selectedService.label}</span><h2>{selectedService.title}</h2><p>{selectedService.description}</p><ul>{selectedService.features.map((feature) => <li key={feature}>✓ {feature}</li>)}</ul><div className="modal-price"><strong>{selectedService.price}</strong><span>per session · monthly plans available</span></div><button className="button button-primary large" onClick={() => { setSelectedService(null); setBooking(selectedService.title) }}>Subscribe to this program <span>→</span></button></div></div>}
       {selectedTeacher && <div className="modal-backdrop" onClick={() => setSelectedTeacher(null)}><div className="modal teacher-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setSelectedTeacher(null)}>×</button><div className={`teacher-modal-avatar ${selectedTeacher.color}`}>{selectedTeacher.initials}<span>✓</span></div><span className="eyebrow blue-bg">Sally Academy mentor</span><h2>{selectedTeacher.name}</h2><strong className="teacher-modal-role">{selectedTeacher.role}</strong><p className="teacher-modal-bio">“{selectedTeacher.bio}”</p><div className="teacher-modal-details"><span>✓ Verified mentor</span><span>★ 4.9 average rating</span><span>⌁ Flexible session times</span></div></div></div>}
-      {booking && <div className="modal-backdrop" onClick={() => setBooking(null)}><div className="modal booking-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setBooking(null)}>×</button><span className="eyebrow coral-bg">Let’s get started</span><h2>Find the right fit.</h2><p>Tell us a little about your learner and our team will be in touch within one school day about <strong>{booking}</strong>.</p><form onSubmit={(event) => { event.preventDefault(); setBooking('Thanks! We’ll be in touch soon.') }}><label>Your name<input required placeholder="Parent or guardian name" /></label><label>Email address<input required type="email" placeholder="you@example.com" /></label><label>Learner’s age<select defaultValue=""><option value="" disabled>Select age</option><option>6–8</option><option>9–12</option><option>13–15</option><option>16–18</option></select></label><button className="button button-primary large" type="submit">Request a call <span>→</span></button></form></div></div>}
-      {playing && <div className="modal-backdrop" onClick={() => setPlaying(false)}><div className="modal video-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setPlaying(false)}>×</button><div className="video-placeholder"><span className="large-play">▶</span><strong>Sally Academy in action</strong><small>Video tour coming soon</small></div></div></div>}
+      {selectedLeader && <div className="modal-backdrop" onClick={() => setSelectedLeader(null)}><div className="modal leader-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setSelectedLeader(null)}>×</button><span className="eyebrow mint-bg">About the academy leadership</span><h2>{selectedLeader.name}</h2><strong className="teacher-modal-role">{selectedLeader.role}</strong><p className="leader-modal-bio">{selectedLeader.bio}</p><button className="button button-primary large" onClick={() => { setSelectedLeader(null); setBooking(`Connect with ${selectedLeader.name}`) }}>Contact us <span>→</span></button></div></div>}
+      {booking && <div className="modal-backdrop" onClick={() => setBooking(null)}><div className="modal booking-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setBooking(null)}>×</button><span className="eyebrow coral-bg">Let’s get started</span><h2>Find the right fit.</h2><p>Tell us a little about your learner and our team will be in touch within one school day about <strong>{booking}</strong>.</p><form onSubmit={(event) => { event.preventDefault(); setBooking('Thanks! We’ll be in touch soon.') }}><label>Your name<input required placeholder="Parent or guardian name" /></label><label>Email address<input required type="email" placeholder="you@example.com" /></label><label>Phone number<input required type="tel" placeholder="+970 5X XXX XXXX" /></label><label>Learner’s age<select defaultValue=""><option value="" disabled>Select age</option><option>6–8</option><option>9–12</option><option>13–15</option><option>16–18</option></select></label><button className="button button-primary large" type="submit">Request a call <span>→</span></button></form></div></div>}
+      {playing && <div className="modal-backdrop" onClick={() => setPlaying(false)}><div className="modal video-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setPlaying(false)}>×</button><video className="academy-video" src={introductoryVideo} controls autoPlay playsInline /></div></div>}
     </div>
   )
 }
